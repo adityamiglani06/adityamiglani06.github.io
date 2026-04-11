@@ -677,3 +677,41 @@ body {
     display: inline-block;
     min-width: 14ch; /* Prevents the container from flickering/changing size */
 }
+
+/* Add this to the bottom of style.css */
+@media (max-width: 600px) {
+    .name-text {
+        font-size: 2.2rem; /* Half the size for mobile */
+        letter-spacing: -1px;
+        min-width: auto;
+    }
+    
+    .name-container {
+        padding: 30px 15px; /* Tighter padding so it fits */
+    }
+}
+
+@media (max-width: 768px) {
+    .cv-section {
+        padding: 80px 10px 40px; /* Less side padding */
+    }
+    
+    .cv-container {
+        max-width: 100%; /* CV fills the screen width */
+    }
+
+    .nav-title {
+        font-size: 0.7rem; /* Shrink title so it doesn't hit the back button */
+    }
+}
+
+@media (max-width: 800px) {
+    .hack-grid {
+        grid-template-columns: 1fr; /* Stacked! */
+        gap: 20px;
+    }
+    
+    .hack-image {
+        height: 180px; /* Slightly shorter images for mobile */
+    }
+}
