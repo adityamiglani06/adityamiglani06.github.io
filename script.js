@@ -110,3 +110,27 @@ if (cvTarget && cvOverlay) {
     cvOverlay.addEventListener('click', closeOverlay);
     closeBtn.addEventListener('click', closeOverlay);
 }
+//shooting stars 
+function createShootingStar() {
+    const container = document.getElementById('star-container');
+    const star = document.createElement('div');
+    star.className = 'shooting_star';
+    
+    // Randomize position
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    
+    // Randomize delay
+    const delay = Math.random() * 10000;
+    star.style.animationDelay = `${delay}ms`;
+    
+    container.appendChild(star);
+
+    // Remove star after animation to keep DOM clean
+    setTimeout(() => {
+        star.remove();
+    }, delay + 3000);
+}
+
+// Create a new star every 2 seconds
+setInterval(createShootingStar, 2000);
