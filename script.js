@@ -85,10 +85,6 @@ function scrambleName() {
 // ONLY trigger on the initial load
 window.addEventListener('load', scrambleName);
 
-// DELETE OR COMMENT OUT THE LINE BELOW
-// nameHeader.onmouseover = scrambleName;
-
-
 // CV Enlargement Logic
 const cvTarget = document.getElementById('cv-paper');
 const cvOverlay = document.getElementById('cv-overlay');
