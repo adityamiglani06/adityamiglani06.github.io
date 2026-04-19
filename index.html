@@ -27,6 +27,20 @@
       --font-body: 'Inter', sans-serif;
     }
 
+    /* ─── Light Mode Tokens ─────────────────────────── */
+    [data-theme="light"] {
+      --bg:        #f0f4f8;
+      --surface:   #ffffff;
+      --surface2:  #e8edf3;
+      --border:    rgba(56,149,248,0.22);
+      --border2:   rgba(0,0,0,0.09);
+      --accent:    #0284c7;
+      --accent2:   #6366f1;
+      --text:      #0f172a;
+      --muted:     #475569;
+      --green:     #059669;
+    }
+
     /* ─── Reset ──────────────────────────────────────── */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
@@ -71,6 +85,42 @@
     ::-webkit-scrollbar-track { background:var(--bg); }
     ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:2px; }
 
+    /* ─── Theme Toggle Switch ────────────────────────── */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .theme-toggle-track {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      transition: background .3s, border-color .3s;
+    }
+    .theme-toggle-thumb {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform .3s, background .3s;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px;
+    }
+    [data-theme="light"] .theme-toggle-thumb {
+      transform: translateX(20px);
+    }
+    .theme-toggle-icon {
+      font-size: .8rem;
+      color: var(--muted);
+      transition: color .3s;
+      user-select: none;
+    }
+
     /* ─── Navbar ─────────────────────────────────────── */
     .navbar {
       position: fixed; top:20px; left:50%; transform:translateX(-50%);
@@ -114,6 +164,11 @@
       transition:.25s; border:1px solid transparent;
     }
     .nav-cta:hover { background:transparent; color:var(--accent); border-color:var(--accent); }
+
+    [data-theme="light"] .navbar {
+      background: rgba(240,244,248,.85);
+    }
+    [data-theme="light"] .terminal-box { background: #f8fafc; }
 
     @media(max-width:768px){
       .nav-links, .nav-cta { display:none; }
@@ -612,6 +667,13 @@
 
   <!-- ── NAVBAR ──────────────────────────────────────── -->
   <header class="navbar" id="navbar">
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" style="background:none;border:none;padding:0;">
+      <span class="theme-toggle-icon">🌙</span>
+      <div class="theme-toggle-track">
+        <div class="theme-toggle-thumb"></div>
+      </div>
+      <span class="theme-toggle-icon">☀️</span>
+    </button>
     <a href="#hero" class="nav-logo">AM<span>./portfolio</span></a>
     <nav>
       <ul class="nav-links">
@@ -1007,6 +1069,20 @@ function sendMessage(){
     successEl.style.display = 'block';
     setTimeout(() => successEl.style.display='none', 5000);
 }
+
+/* ── Dark / Light Mode Toggle ─────────────────────────── */
+const themeToggleBtn = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+// Load saved preference or default to dark
+const savedTheme = localStorage.getItem('theme') || 'dark';
+if (savedTheme === 'light') html.setAttribute('data-theme', 'light');
+
+themeToggleBtn.addEventListener('click', () => {
+  const isLight = html.getAttribute('data-theme') === 'light';
+  html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  localStorage.setItem('theme', isLight ? 'dark' : 'light');
+});
   </script>
 </body>
 </html>
